@@ -103,5 +103,3 @@ cat /var/lib/dhcp/dhcpd.leases
 
 #If you encounter any issues, you can check the logs with:
 journalctl -xe | grep dhcp
-
-
