@@ -27,3 +27,19 @@ vim /etcbind/named.conf.options
             listen-on-v6 { any; };
             listen-on port 53 { 127.0.0.1; 172.16.0.6; };
     };
+
+vim /etcbind/named.conf.local
+    zone "lab.local" {
+            type master;
+            file "/etc/bind/db.lab.local";
+    };
+    
+    zone "16.172.in-addr.arpa" {
+            type master;
+            file "/etc/bind/db.reverse";
+    };
+
+cd /etc/bind
+cp db.local db.lab.local
+cp db.127 db.reverse
+
