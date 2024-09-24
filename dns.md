@@ -1,7 +1,11 @@
 #--SRV1--
+
+```shell
 apt install -y bind9 bind9-utils
+```
 
 vim /etcbind/named.conf.options
+```shell
     acl mysubnets {
             localhost;
             localnets;
@@ -27,8 +31,10 @@ vim /etcbind/named.conf.options
             listen-on-v6 { any; };
             listen-on port 53 { 127.0.0.1; 172.16.0.6; };
     };
+```
 
 vim /etcbind/named.conf.local
+```shell
     zone "lab.local" {
             type master;
             file "/etc/bind/db.lab.local";
@@ -38,7 +44,9 @@ vim /etcbind/named.conf.local
             type master;
             file "/etc/bind/db.reverse";
     };
-
+```
+```shell
 cd /etc/bind
 cp db.local db.lab.local
 cp db.127 db.reverse
+```
