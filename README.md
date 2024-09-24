@@ -10,8 +10,9 @@ vim /etc/default/isc-dhcp-server
 
 ## Step 3: Configure the main config
 vim /etc/dhcp/dhcpd.conf
-    authoritative;
-    shared-network "clients-network" {
+```shell
+            authoritative;
+            shared-network "clients-network" {
     
             failover peer "dhcp-failover" {
                     primary;
@@ -43,7 +44,7 @@ vim /etc/dhcp/dhcpd.conf
             subnet 172.16.0.0 netmask 255.255.255.0 {
             }
     }
-
+'''
 ## Step 4: Restart and Enable the DHCP Service
 systemctl restart isc-dhcp-server
 systemctl enable isc-dhcp-server
