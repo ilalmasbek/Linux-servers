@@ -44,7 +44,7 @@ vim /etc/dhcp/dhcpd.conf
             subnet 172.16.0.0 netmask 255.255.255.0 {
             }
     }
-'''
+```
 ## Step 4: Restart and Enable the DHCP Service
 systemctl restart isc-dhcp-server
 systemctl enable isc-dhcp-server
