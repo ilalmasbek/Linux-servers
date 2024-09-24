@@ -1,5 +1,5 @@
 # Linux-servers
-# --SRV1--
+## --SRV1--
 ## Step 1: Install the DHCP Server Package
 apt update && upgrade -y
 apt install -y isc-dhcp-server
