@@ -11,39 +11,38 @@ vim /etc/default/isc-dhcp-server
 ## Step 3: Configure the main config
 vim /etc/dhcp/dhcpd.conf
 ```shell
-            authoritative;
-            shared-network "clients-network" {
+authoritative;
+shared-network "clients-network" {
     
-                failover peer "dhcp-failover" {
-                        primary;
-                        address 172.16.0.6;
-                        port 519;
-                        peer address 172.16.0.7;
-                        peer port 519;
-                        max-response-delay 60;
-                        max-unacked-updates 10;
-                        mclt 3600;
-                        split 128;
-                        load balance max seconds 3;
-                }
+    failover peer "dhcp-failover" {
+        primary;
+        address 172.16.0.6;
+        port 519;
+        peer address 172.16.0.7;
+        peer port 519;
+        max-response-delay 60;
+        max-unacked-updates 10;
+        mclt 3600;
+        split 128;
+        load balance max seconds 3;
+    }
         
-                subnet 192.168.1.0 netmask 255.255.255.0 {
-                        option routers 192.168.1.1;
-                        option domain-name-servers 8.8.8.8, 8.8.4.4;
-                        option domain-name "lab.local";
-                        option subnet-mask 255.255.255.0;
-                        default-lease-time 600;
-                        max-lease-time 7200;
-                }
-        
-                        pool {
-                                failover peer "dhcp-failover";
-                                range 192.168.1.100 192.168.1.200;
-                        }
-        
-                subnet 172.16.0.0 netmask 255.255.255.0 {
-                }
-            }    
+    subnet 192.168.1.0 netmask 255.255.255.0 {
+        option routers 192.168.1.1;
+        option domain-name-servers 8.8.8.8, 8.8.4.4;
+        option domain-name "lab.local";
+        option subnet-mask 255.255.255.0;
+        default-lease-time 600;
+        max-lease-time 7200;
+        pool {
+            failover peer "dhcp-failover";
+            range 192.168.1.100 192.168.1.200;
+        }
+    }
+
+    subnet 172.16.0.0 netmask 255.255.255.0 {
+    }
+}    
 ```
 ## Step 4: Restart and Enable the DHCP Service
 systemctl restart isc-dhcp-server
