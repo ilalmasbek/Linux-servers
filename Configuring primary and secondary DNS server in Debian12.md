@@ -1,5 +1,21 @@
+```shell
+
+```
 #--SRV1--
-## Step 1: Install the DHCP Server Package
+## Step 1: Configure the first network settings 
+nano /etc/network/interfaces
+```shell
+auto eth0
+iface eth0 inet static
+        address 172.16.0.6/24
+        gateway 172.16.0.1
+        dns-nameservers 8.8.8.8
+```
+```shell
+systemctl restart networking
+```
+
+## Step 2: Install the DNS server package and DNS tools
 ```shell
 apt install -y bind9 bind9-utils
 ```
