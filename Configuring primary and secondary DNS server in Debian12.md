@@ -112,3 +112,9 @@ $TTL    604800
 ```shell
 named-checkzone 16.172.in-addr.arpa /etc/bind/db.reverse
 ```
+## Step 11: Restart and check the status of the BIND service
+```shell
+systemctl restart bind9
+systemctl status bind9
+```
+
