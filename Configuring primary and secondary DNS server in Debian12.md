@@ -55,11 +55,15 @@ vim /etc/bind/named.conf.local
 zone "lab.local" {
     type master;
     file "/etc/bind/db.lab.local";
+    allow-transfer { 172.16.0.7; };
+    also-notify { 172.16.0.7; };
 };
     
 zone "16.172.in-addr.arpa" {
     type master;
     file "/etc/bind/db.reverse";
+    allow-transfer { 172.16.0.7; };
+    also-notify { 172.16.0.7; };
 };
 ```
 ## Step 6: Copy files in forward and reverse zones into new files, as well in settings in zones.
@@ -116,5 +120,30 @@ named-checkzone 16.172.in-addr.arpa /etc/bind/db.reverse
 ```shell
 systemctl restart bind9
 systemctl status bind9
+```
+nano /etc/network/interfaces
+```shell
+auto eth0
+iface eth0 inet static
+        address 172.16.0.6/24
+        gateway 172.16.0.1
+        dns-nameservers 172.16.0.6 172.16.0.7
+```
+nano /etc/resolv.conf
+```shell
+nameserver 172.16.0.6
+nameserver 172.16.0.7
+domain lab.local
+```
+
+# SRV2
+
+nano /etc/network/interfaces
+```shell
+auto eth0
+iface eth0 inet static
+        address 172.16.0.7/24
+        gateway 172.16.0.1
+        dns-nameservers 8.8.8.8
 ```
 
