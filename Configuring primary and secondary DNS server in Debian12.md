@@ -139,7 +139,6 @@ domain lab.local
 systemctl restart networking
 ```
 # SRV2
-
 ## Step 1: Configure the first network settings.
 nano /etc/network/interfaces
 ```shell
@@ -171,36 +170,52 @@ zone "16.172.in-addr.arpa" {
     masters { 172.0.0.6; };
 };
 ```
-## Step 11: Restart and check the status of the BIND service
+## Step 4: Restart and check the status of the BIND service
 ```shell
 systemctl restart bind9
 systemctl status bind9
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Step 5: Reconfigure network settings.
+nano /etc/network/interfaces
 ```shell
-sudo ufw allow 53/tcp
-sudo ufw allow 53/udp
+auto eth0
+iface eth0 inet static
+        address 172.16.0.6/24
+        gateway 172.16.0.1
+        dns-nameservers 172.16.0.6 172.16.0.7
 ```
+nano /etc/resolv.conf
+```shell
+nameserver 172.16.0.6
+nameserver 172.16.0.7
+domain lab.local
+```
+```shell
+systemctl restart networking
+```
+## Additionally
+```shell
+nslookup srv1
+```
+```shell
+host srv1
+```
+```shell
+journalctl -u bind9
+```
+```shell
+tail -f /var/log/syslog
+```
+```shell
+dig @172.16.0.7 lab.local
+```
+
+
+
+
+
+
+
+
+
+
