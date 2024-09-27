@@ -144,7 +144,7 @@ nano /etc/network/interfaces
 ```shell
 auto eth0
 iface eth0 inet static
-        address 172.16.0.6/24
+        address 172.16.0.7/24
         gateway 172.16.0.1
         dns-nameservers 8.8.8.8
 ```
@@ -180,7 +180,7 @@ nano /etc/network/interfaces
 ```shell
 auto eth0
 iface eth0 inet static
-        address 172.16.0.6/24
+        address 172.16.0.7/24
         gateway 172.16.0.1
         dns-nameservers 172.16.0.6 172.16.0.7
 ```
