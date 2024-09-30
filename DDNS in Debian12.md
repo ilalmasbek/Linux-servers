@@ -24,7 +24,7 @@ zone "16.172.in-addr.arpa" {
     type master;
     ...
     update-policy {
-            grant keygen1 wildcard *.lab.local PTR DHCID;
+            grant keygen1 wildcard *.16.172.in-addr.arpa PTR DHCID;
     };
 };
 =======================================
@@ -57,7 +57,9 @@ systemctl status bind9
 systemctl restart isc-dhcp-server
 systemctl status isc-dhcp-server
 ======================================
-
+dhcp-lease-list 
+tail -f /var/log/syslog
+more /var/lib/bind/db.lab.local
 
 
 
