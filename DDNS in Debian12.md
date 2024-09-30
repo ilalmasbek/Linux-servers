@@ -2,13 +2,16 @@
 ## SRV1 | Step 1 
 =====================================
 cd /var/lib/bind/
-
+```shell
 ddns-confgen -k keygen1
+```
+```shell
 nano dns.key
 key "keygen1" {
         algorithm hmac-sha256;
         secret "IZeTrtydTlsL7fj4BVyR2x4pSsfoBaVQgN5Qj/T2uIY=";
 };
+```
 ===============================================
 ## Step 2 
 nano /etc/bind/named.conf.local
