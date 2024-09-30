@@ -1,7 +1,8 @@
 # Before starting configuration, please read the readme file. 
 ## SRV1 | Step 1 
 =====================================
-cd /etc/bind/
+cd /var/lib/bind/
+
 ddns-confgen -k keygen1
 nano dns.key
 key "keygen1" {
@@ -9,8 +10,9 @@ key "keygen1" {
         secret "IZeTrtydTlsL7fj4BVyR2x4pSsfoBaVQgN5Qj/T2uIY=";
 };
 ===============================================
+## Step 2 
 nano /etc/bind/named.conf.local
-include "/etc/bind/dns.key";
+include "/var/lib/bind/dns.key";
 
 zone "lab.local" {
     type master;
@@ -28,6 +30,7 @@ zone "16.172.in-addr.arpa" {
     };
 };
 =======================================
+## Step 3 
 cd /etc/dhcp/
 nano dhcp.key
 key "keygen1" {
@@ -35,6 +38,7 @@ key "keygen1" {
         secret "IZeTrtydTlsL7fj4BVyR2x4pSsfoBaVQgN5Qj/T2uIY=";
 };
 =============================================
+## Step 4 
 nano dhcpd.conf
 
 ddns-updates on;
@@ -42,7 +46,7 @@ ddns-update-style standard;
 ddns-domainname "lab.local";
 ddns-rev-domainname "16.172.in-addr.arpa";
 include "/etc/dhcp/dhcp.key";
-zone example.com. {
+zone lab.local. {
     primary 172.16.0.6;
     key keygen1;
 }
@@ -51,15 +55,26 @@ zone 16.172.in-addr.arpa. {
     key keygen1;
 }
 ======================================
+## Step 6
+
 systemctl restart bind9
 systemctl status bind9
 
 systemctl restart isc-dhcp-server
 systemctl status isc-dhcp-server
 ======================================
+## SRV2 | Step 1
+
+
+
+
+
+
+
+
+
 dhcp-lease-list 
 tail -f /var/log/syslog
 more /var/lib/bind/db.lab.local
-
 
 
