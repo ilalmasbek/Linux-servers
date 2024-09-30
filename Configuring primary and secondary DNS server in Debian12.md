@@ -1,5 +1,5 @@
-# SRV1
-## Step 1: Configure the first network settings.
+# Before starting configuration, please read the readme file.
+## SRV1 | Step 1: Configure the first network settings.
 nano /etc/network/interfaces
 ```shell
 auto eth0
