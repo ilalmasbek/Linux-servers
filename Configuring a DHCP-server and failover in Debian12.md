@@ -1,5 +1,5 @@
-## --SRV1--
-## Step 1: Install the DHCP Server Package
+# Before starting configuration, please read the readme file.
+## SRV1 | Step 1: Install the DHCP Server Package
 ```shell
 apt update && upgrade -y
 apt install -y isc-dhcp-server
