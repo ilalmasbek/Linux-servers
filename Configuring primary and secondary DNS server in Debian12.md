@@ -129,7 +129,7 @@ $TTL    604800
 ```shell
 named-checkzone 16.172.in-addr.arpa /var/lib/bind/db.reverse
 ```
-## Step 11: Restart and check the status of the BIND service
+## Step 11: Restart and check the status of the BIND service.
 ```shell
 systemctl restart bind9
 ```
@@ -158,8 +158,7 @@ domain lab.local
 ```shell
 systemctl restart networking
 ```
-# SRV2
-## Step 1: Configure the first network settings.
+## SRV2 | Step 1: Configure the first network settings.
 ```shell
 nano /etc/network/interfaces
 ```
@@ -194,7 +193,7 @@ zone "16.172.in-addr.arpa" {
     masters { 172.0.0.6; };
 };
 ```
-## Step 4: Restart and check the status of the BIND service
+## Step 4: Restart and check the status of the BIND service.
 ```shell
 systemctl restart bind9
 ```
