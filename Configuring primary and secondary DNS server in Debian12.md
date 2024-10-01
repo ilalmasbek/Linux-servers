@@ -1,6 +1,8 @@
 # Before starting configuration, please read the readme file.
 ## SRV1 | Step 1: Configure the first network settings.
+```shell
 nano /etc/network/interfaces
+```
 ```shell
 auto eth0
 iface eth0 inet static
@@ -16,7 +18,9 @@ systemctl restart networking
 apt install -y bind9 bind9-utils dnsutils
 ```
 ## Step 3: Configure forwarding of DNS requests to the DNS servers of providers.
+```shell
 vim /etc/bind/named.conf.options
+```
 ```shell
 acl mysubnets {
     localhost;
@@ -49,7 +53,9 @@ options {
 named-checkconf
 ```
 ## Step 5: Create forward and reverse zones.
+```shell
 vim /etc/bind/named.conf.local
+```
 ```shell
 zone "lab.local" {
     type master;
@@ -68,11 +74,17 @@ zone "16.172.in-addr.arpa" {
 ## Step 6: Copy files in forward and reverse zones into new files, as well in settings in zones.
 ```shell
 cd /etc/bind
+```
+```shell
 cp db.local /var/lib/bind/db.lab.local
+```
+```shell
 cp db.127 /var/lib/bind/db.reverse
 ```
 ## Step 7: Forward zone settings.
+```shell
 nano /var/lib/bind/db.lab.local
+```
 ```shell
 ;
 ; BIND data file for local loopback interface
@@ -94,7 +106,9 @@ srv2    IN      A       172.16.0.7
 named-checkzone lab.local /var/lib/bind/db.lab.local
 ```
 ## Step 9: Reverse zone settings.
+```shell
 nano /var/lib/bind/db.reverse
+```
 ```shell
 ;
 ; BIND reverse data file for local loopback interface
@@ -118,10 +132,14 @@ named-checkzone 16.172.in-addr.arpa /var/lib/bind/db.reverse
 ## Step 11: Restart and check the status of the BIND service
 ```shell
 systemctl restart bind9
+```
+```shell
 systemctl status bind9
 ```
 ## Step 12: Reconfigure network settings.
+```shell
 nano /etc/network/interfaces
+```
 ```shell
 auto eth0
 iface eth0 inet static
@@ -129,7 +147,9 @@ iface eth0 inet static
         gateway 172.16.0.1
         dns-nameservers 172.16.0.6 172.16.0.7
 ```
+```shell
 nano /etc/resolv.conf
+```
 ```shell
 nameserver 172.16.0.6
 nameserver 172.16.0.7
@@ -140,7 +160,9 @@ systemctl restart networking
 ```
 # SRV2
 ## Step 1: Configure the first network settings.
+```shell
 nano /etc/network/interfaces
+```
 ```shell
 auto eth0
 iface eth0 inet static
@@ -156,7 +178,9 @@ systemctl restart networking
 apt install -y bind9 bind9-utils dnsutils
 ```
 ## Step 3: Create forward and reverse zones.
+```shell
 vim /etc/bind/named.conf.local
+```
 ```shell
 zone "lab.local" {
     type secondary;
@@ -173,6 +197,8 @@ zone "16.172.in-addr.arpa" {
 ## Step 4: Restart and check the status of the BIND service
 ```shell
 systemctl restart bind9
+```
+```shell
 systemctl status bind9
 ```
 ## Step 5: Reconfigure network settings.
@@ -184,7 +210,9 @@ iface eth0 inet static
         gateway 172.16.0.1
         dns-nameservers 172.16.0.6 172.16.0.7
 ```
+```shell
 nano /etc/resolv.conf
+```
 ```shell
 nameserver 172.16.0.6
 nameserver 172.16.0.7
