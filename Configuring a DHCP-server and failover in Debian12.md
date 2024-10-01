@@ -1,16 +1,22 @@
-## --SRV1--
-## Step 1: Install the DHCP Server Package
+# Before starting configuration, please read the readme file.
+## SRV1 | Step 1: Install the DHCP Server Package.
 ```shell
 apt update && upgrade -y
+```
+```shell
 apt install -y isc-dhcp-server
 ```
-## Step 2: Specify the Network Interface for the DHCP Server
+## Step 2: Specify the Network Interface for the DHCP Server.
+```shell
 vim /etc/default/isc-dhcp-server
+```
 ```shell
 INTERFACESv4="eth0"
 ```
-## Step 3: Configure the main config
+## Step 3: Configure the main config.
+```shell
 vim /etc/dhcp/dhcpd.conf
+```
 ```shell
 authoritative;
 shared-network "clients-network" {
@@ -42,24 +48,29 @@ shared-network "clients-network" {
     }
 }    
 ```
-## Step 4: Restart and Enable the DHCP Service
+## Step 4: Restart and Enable the DHCP Service.
 ```shell
 systemctl restart isc-dhcp-server
+```
+```shell
 systemctl enable isc-dhcp-server
 ```
-## --SRV2--
-## Step 1: Install the DHCP Server Package
+## SRV2 | Step 1: Install the DHCP Server Package.
 ```shell
 apt update && upgrade -y
+```
+```shell
 apt install -y isc-dhcp-server
 ```
-## Step 2: Specify the Network Interface for the DHCP Server
+## Step 2: Specify the Network Interface for the DHCP Server.
 vim /etc/default/isc-dhcp-server
 ```shell
 INTERFACESv4="eth0"
 ```
-## Step 3: Configure the main config
+## Step 3: Configure the main config.
+```shell
 vim /etc/dhcp/dhcpd.conf
+```
 ```shell
 authoritative;
 shared-network "clients-network" {
@@ -89,9 +100,11 @@ shared-network "clients-network" {
     }
 }
 ```
-## Step 4: Restart and Enable the DHCP Service
+## Step 4: Restart and Enable the DHCP Service.
 ```shell
 systemctl restart isc-dhcp-server
+```
+```shell
 systemctl enable isc-dhcp-server
 ```
 ## Additionally
