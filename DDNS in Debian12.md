@@ -5,9 +5,7 @@ cd /var/lib/bind/
 ```shell
 ddns-confgen -k keygen1
 ```
-```shell
 nano dns.key
-```
 ```shell
 key "keygen1" {
         algorithm hmac-sha256;
@@ -77,15 +75,45 @@ systemctl restart isc-dhcp-server
 systemctl status isc-dhcp-server
 ```
 ======================================
-## SRV2 | Step 1
+## SRV2 | Step 1 
+```shell
+cd /etc/dhcp/
+nano dhcp.key
+```
+```shell
+key "keygen1" {
+        algorithm hmac-sha256;
+        secret "IZeTrtydTlsL7fj4BVyR2x4pSsfoBaVQgN5Qj/T2uIY=";
+};
+```
+## Step 2 
+nano dhcpd.conf
+```shell
+ddns-updates on;
+ddns-update-style standard;
+ddns-domainname "lab.local";
+ddns-rev-domainname "16.172.in-addr.arpa";
+include "/etc/dhcp/dhcp.key";
+zone lab.local. {
+    primary 172.16.0.6;
+    key keygen1;
+}
+zone 16.172.in-addr.arpa. {
+    primary 172.16.0.6;
+    key keygen1;
+}
+```
+## Step 3
+```shell
+systemctl restart isc-dhcp-server
+systemctl status isc-dhcp-server
+```
 
 
 
 
 
-
-
-
+## Additionally
 ```shell
 dhcp-lease-list
 ```
