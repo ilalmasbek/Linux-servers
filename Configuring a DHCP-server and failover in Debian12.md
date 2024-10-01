@@ -55,8 +55,7 @@ systemctl restart isc-dhcp-server
 ```shell
 systemctl enable isc-dhcp-server
 ```
-## --SRV2--
-## Step 1: Install the DHCP Server Package.
+## SRV2 | Step 1: Install the DHCP Server Package.
 ```shell
 apt update && upgrade -y
 ```
